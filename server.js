@@ -10,10 +10,10 @@ const logger = require('morgan')
 const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const postRoutes = require('./routes/posts')
-const commentRouts = require('./routes/comments')
+// const commentRouts = require('./routes/comments')
 
 // use .env
-require('dotenv').config({ path: './config/.env' })
+require('dotenv').config({ path: './config/config.env' })
 
 // passport config
 require("./config/passport")(passport)
@@ -63,5 +63,5 @@ app.use('/post', postRoutes)
 
 // server running
 app.listen(process.env.PORT, () => {
-	console.log("Server started")
+	console.log(`Server started on port ${process.env.PORT}`)
 })
