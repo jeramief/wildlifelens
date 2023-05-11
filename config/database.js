@@ -11,7 +11,7 @@ const connectDB = async () => {
 			useCreateIndex: true,
 		})
 
-		console.log(`Connected to DB: ${conn.connection.host}`)
+		console.log(`DB: ${conn.connection.host}`)
 	} catch (err) {
 		console.error(err)
 		process.exit(1)

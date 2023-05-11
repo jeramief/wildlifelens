@@ -1,7 +1,7 @@
 {
-  "name": "fullstack-template",
+  "name": "wildlifelens",
   "version": "1.0.0",
-  "description": "starter template for future projects",
+  "description": "Share your wildest nature finds",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"

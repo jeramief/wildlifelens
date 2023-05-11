@@ -10,7 +10,7 @@ const logger = require('morgan')
 const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const postRoutes = require('./routes/posts')
-// const commentRouts = require('./routes/comments')
+// const commentRoutes = require('./routes/comments')
 
 // use .env
 require('dotenv').config({ path: './config/config.env' })
@@ -20,6 +20,14 @@ require("./config/passport")(passport)
 
 // connect to database
 connectDB()
+  .then(() => {
+    console.log(`Connected successfully`);
+  })
+  .catch((err) => {
+    console.error('Error connecting to the database:', err);
+    process.exit(1);
+  });
+
 
 // using EJS for view
 app.set('view engine', 'ejs')
@@ -57,11 +65,11 @@ app.use(passport.session())
 app.use(flash())
 
 // setup routes for which the server is listening
-app.use('/main', mainRoutes)
+app.use('/', mainRoutes)
 app.use('/post', postRoutes)
 // app.use('/comment', commentRouts)
 
 // server running
 app.listen(process.env.PORT, () => {
-	console.log(`Server started on port ${process.env.PORT}`)
+	console.log(`Server started on port http://localhost:${process.env.PORT}`)
 })

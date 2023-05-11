@@ -1,17 +1,24 @@
+<!-- using ejs pull in the header file for the top of the page -->
 <%- include('partials/header') -%>
-
-<div class="container">
+  <!-- wrap the feed section in a div with the class container -->
+  <div class="container">
+    <!-- create another div and using bootstrap push everything into a row and center it with a margin top of 5px -->
     <div class="row justify-content-center mt-5">
-        <ul class="row list-unstyled">
-            <% for(let i = 0; i < posts.length; i++) { %>
-                <li class="col-6 justify-content-between mt-5">
-                    <a href="/post/<%= posts[i]._id %>">
-                        <img class="img-fluid" src="<%= posts[i].image %>">
-                    </a>
-                </li>
-            <% } %>
+      <!-- create a list push them into a row and remove the list dots -->
+      <ul class="row list-unstyled">
+        <!-- using ejs post the list onto the screen -->
+        <% for(var i=0; i<posts.length; i++) {%>
+          <!-- show every list element with a top margin of 5px -->
+          <li class="col-6 justify-content-between mt-5">
+            <!-- pull from the posts the post with the matching id -->
+            <a href="/post/<%= posts[i]._id%>">
+              <!-- and the matching image -->
+              <img class="img-fluid" src="<%= posts[i].image%>">
+            </a>
+          </li>
+        <% } %>
         </ul>
     </div>
-</div>
-
+  </div>
+<!-- using ejs pull in the footer -->
 <%- include('partials/footer') -%>
