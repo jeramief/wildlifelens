@@ -5,15 +5,19 @@ const Post = require('../middleware/models/Post')
 module.exports = {
 	getProfile: async (req, res) => {
     try {
-      //Since we have a session each request (req) contains the logged-in users info: req.user
-      //Grabbing just the posts of the logged-in user
-      //console.log(req.user) to see everything
       const posts = await Post.find({ user: req.user.id });
-      //Sending post data from mongodb and user data to ejs template
       res.render("profile.ejs", { posts: posts, user: req.user });
     } catch (err) {
       console.log(err);
     }
+	},
+	getFeed: async (req, res) => {
+		try {
+			const posts = await Post.find().sort({ createdAt: 'desc' }).lean()
+			res.render('feed.ejs', { posts: posts })
+		} catch (err) {
+			console.log(err)
+		}
 	},
 	getPost: async (req, res) => {
 		try {
