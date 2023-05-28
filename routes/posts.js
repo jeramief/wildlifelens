@@ -14,6 +14,6 @@ router.post('/createPost', upload.single('file'), postsController.createPost)
 router.put('/likePost/:id', postsController.likePost)
 
 // enables user to delete post. in controller, uses POST model to delete post from MongoDB collection
-router.delete('/delete/:id', postsController.deletePost)
+router.delete('/deletePost/:id', postsController.deletePost)
 
 module.exports = router
