@@ -1,6 +1,8 @@
+// used for password encryption when stored
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 
+// model schema for new user
 const UserSchema = new mongoose.Schema({
 	userName: { type: String, unique: true },
 	email: { type: String, unique: true},
@@ -37,4 +39,5 @@ UserSchema.methods.comparePassword = function comparePassword(
 	})
 }
 
+// used in auth controller
 module.exports = mongoose.model('User', UserSchema)

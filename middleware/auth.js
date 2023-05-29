@@ -1,3 +1,4 @@
+// used in main routes
 module.exports = {
 	ensureAuth: function (req, res, next) {
 		if (req.isAuthenticated()) {

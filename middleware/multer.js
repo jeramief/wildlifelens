@@ -1,6 +1,8 @@
+// multer is being used for file types
 const multer = require('multer')
 const path = require('path')
 
+// used in posts routes
 module.exports = multer({
 	storage: multer.diskStorage({}),
 	fileFilter: (req, file, cb) => {

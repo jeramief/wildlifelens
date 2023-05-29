@@ -8,4 +8,5 @@ cloudinary.config({
 	api_secret: process.env.API_SECRET,
 })
 
+// used in posts controller
 module.exports = cloudinary

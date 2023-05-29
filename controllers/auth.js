@@ -15,12 +15,13 @@ exports.getLogin = (req, res) => {
 
 // exports to main routes
 exports.postLogin = (req, res, next) => {
+  // store errors to be used later if needed
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: "Please enter a valid email address." });
   if (validator.isEmpty(req.body.password))
     validationErrors.push({ msg: "Password cannot be blank." });
-
+  // alert errors if any occur
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
     return res.redirect("/login");
