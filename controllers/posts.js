@@ -25,8 +25,10 @@ module.exports = {
 	// used in posts routes
 	getPost: async (req, res) => {
 		try {
-			const post = await Post.findById(req.params.id)
-			res.render('post.ejs', { post: post, user: req.user, /* comments: comments */ })
+			const post = await Post.findById(req.params.id).populate('user', 'userName')
+			const postUser = post.user.userName
+
+			res.render('post.ejs', { post: post, user: req.user, postUser: postUser, /* comments: comments */ })
 		} catch (err) {
 			console.error(err)
 		}
