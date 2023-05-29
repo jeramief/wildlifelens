@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const User = require("../middleware/models/User");
 
 
-// export the passport function
+// export the passport function into server.js
 module.exports = function (passport) {
   passport.use(
     // new strategy to define how passport is used

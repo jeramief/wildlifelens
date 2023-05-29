@@ -2,7 +2,9 @@ const cloudinary = require('../middleware/cloudinary')
 const Post = require('../middleware/models/Post')
 // const Comment = require('../middleware/models/Post')
 
+// exports the functions into main and posts routes
 module.exports = {
+	// used in main routes
 	getProfile: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
@@ -11,6 +13,7 @@ module.exports = {
       console.log(err);
     }
 	},
+	// used in main routes
 	getFeed: async (req, res) => {
 		try {
 			const posts = await Post.find().sort({ createdAt: 'desc' }).lean()
@@ -19,6 +22,7 @@ module.exports = {
 			console.log(err)
 		}
 	},
+	// used in posts routes
 	getPost: async (req, res) => {
 		try {
 			const post = await Post.findById(req.params.id)
@@ -27,6 +31,7 @@ module.exports = {
 			console.error(err)
 		}
 	},
+	// used in posts routes
 	createPost: async (req, res) => {
 		try {
 		// 	upload image to cloudinary
@@ -47,6 +52,7 @@ module.exports = {
 			console.log(err)
 		}
 	},
+	// used in posts routes
 	likePost: async (req, res) => {
 		try {
 			await Post.findOneAndUpdate(
@@ -61,6 +67,7 @@ module.exports = {
 			console.error(err)
 		}
 	},
+	// used in posts routes
 	deletePost: async (req, res) => {
 		// find post by id
 		let post = await Post.findById({ _id: req.params.id })
