@@ -16,4 +16,5 @@ router.put('/likePost/:id', postsController.likePost)
 // enables user to delete post. in controller, uses POST model to delete post from MongoDB collection
 router.delete('/deletePost/:id', postsController.deletePost)
 
+// used in server.js
 module.exports = router

@@ -1,4 +1,5 @@
 const express = require("express");
+// gives the ability to route
 const router = express.Router();
 const authController = require("../controllers/auth");
 const homeController = require("../controllers/home");
@@ -17,4 +18,5 @@ router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
 
+// used in server.js
 module.exports = router;
