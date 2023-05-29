@@ -1,6 +1,7 @@
 // mongoose allows the use of schemas and makes MongoDB somewhat easier
 const mongoose = require('mongoose')
 
+// used in server.js
 const connectDB = async () => {
 	try {
 		// sets up Mongo with
