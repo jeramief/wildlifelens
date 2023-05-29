@@ -2,9 +2,11 @@
   <div class="container">
     <div class="row justify-content-center mt-5">
       <ul class="row list-unstyled">
-        <% for(var i=0; i < posts.length; i++) {%>
+        <!-- list out the posts -->
+        <% for(let i=0; i < posts.length; i++) {%>
           <li class="col-6 justify-content-between mt-5">
             <a href="/post/<%= posts[i]._id%>">
+              <p><%= posts[i].title %></p>
               <img class="img-fluid" src="<%= posts[i].image%>">
             </a>
           </li>
