@@ -3,6 +3,7 @@ const passport = require("passport");
 const validator = require("validator");
 const User = require("../middleware/models/User");
 
+// exports to main routes
 exports.getLogin = (req, res) => {
   if (req.user) {
     return res.redirect("/profile");
@@ -12,6 +13,7 @@ exports.getLogin = (req, res) => {
   });
 };
 
+// exports to main routes
 exports.postLogin = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
@@ -45,6 +47,7 @@ exports.postLogin = (req, res, next) => {
   })(req, res, next);
 };
 
+// exports to main routes
 exports.logout = (req, res) => {
   req.logout(() => {
     console.log('User has logged out.')
@@ -57,6 +60,7 @@ exports.logout = (req, res) => {
   });
 };
 
+// exports to main routes
 exports.getSignup = (req, res) => {
   if (req.user) {
     return res.redirect("/profile");
@@ -66,6 +70,7 @@ exports.getSignup = (req, res) => {
   });
 };
 
+// exports to main routes
 exports.postSignup = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))

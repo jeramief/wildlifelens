@@ -1,10 +1,12 @@
 const Comment = require('../model/Comment')
 
 module.exports = {
+	// creates and exports the createComment function
 	createComment: async (req, res) => {
 		console.log(req.params)
 		console.log(req.body)
 		try {
+			// create a new schema
 			await Comment.create({
 				comment: req.body.comment,
 				likes: 0,
