@@ -5,9 +5,9 @@ import {schemaTypes} from './schemas'
 
 export default defineConfig({
   name: 'default',
-  title: 'wildlifelens_jf',
+  title: 'Wild Life Lens',
 
-  projectId: 'wjvg3ttb',
+  projectId: 'hj9gs7g8',
   dataset: 'production',
 
   plugins: [deskTool(), visionTool()],
