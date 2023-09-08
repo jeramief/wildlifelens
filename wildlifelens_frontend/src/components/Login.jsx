@@ -11,7 +11,7 @@ import { client } from "../client";
 const Login = () => {
   const navigate = useNavigate();
 
-  const credentialResponse = async (response) => {
+  const credentialResponse = (response) => {
     const decoded = jwt_decode(response.credential);
     console.log(
       localStorage.setItem("user", JSON.stringify(response.credential))
