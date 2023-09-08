@@ -1,30 +1,47 @@
 import React from "react";
-import GoogleLogin from "react-google-login";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
+import jwt_decode from "jwt-decode";
 
 import { client } from "../client";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const responseGoogle = (response) => {
-    localStorage.setItem("user", JSON.stringify(response.profileObj));
+  const credentialResponse = async (response) => {
+    const decoded = jwt_decode(response.credential);
+    console.log(
+      localStorage.setItem("user", JSON.stringify(response.credential))
+    );
 
-    const { name, googleId, imageUrl } = response.profileObj;
+    const { name, picture, sub } = decoded;
 
-    const doc = {
-      _id: googleId,
+    const user = {
+      _id: sub,
       _type: "user",
       userName: name,
-      image: imageUrl,
+      image: picture,
     };
 
-    client.createIfNotExists(doc).then(() => {
+    client.createIfNotExists(user).then(() => {
       navigate("/", { replace: true });
     });
+
+    // const { name, googleId, imageUrl } = response.profileObj;
+
+    // const doc = {
+    //   _id: googleId,
+    //   _type: "user",
+    //   userName: name,
+    //   image: imageUrl,
+    // };
+
+    // client.createIfNotExists(doc).then(() => {
+    //   navigate("/", { replace: true });
+    // });
   };
 
   return (
@@ -47,7 +64,6 @@ const Login = () => {
 
           <div className="shadow-2xl">
             <GoogleLogin
-              clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
               render={(renderProps) => (
                 <button
                   type="button"
@@ -58,8 +74,8 @@ const Login = () => {
                   <FcGoogle className="mr-4" /> Sign in with Google
                 </button>
               )}
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
+              onSuccess={credentialResponse}
+              onError={(err) => console.log("Error: " + err)}
               cookiePolicy="single_host_origin"
             />
           </div>
