@@ -29,19 +29,6 @@ const Login = () => {
     client.createIfNotExists(user).then(() => {
       navigate("/", { replace: true });
     });
-
-    // const { name, googleId, imageUrl } = response.profileObj;
-
-    // const doc = {
-    //   _id: googleId,
-    //   _type: "user",
-    //   userName: name,
-    //   image: imageUrl,
-    // };
-
-    // client.createIfNotExists(doc).then(() => {
-    //   navigate("/", { replace: true });
-    // });
   };
 
   return (
