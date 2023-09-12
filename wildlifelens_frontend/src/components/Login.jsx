@@ -5,28 +5,23 @@ import { FcGoogle } from "react-icons/fc";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 import jwt_decode from "jwt-decode";
-
 import { client } from "../client";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  const credentialResponse = (response) => {
+  const responseGoogle = (response) => {
     const decoded = jwt_decode(response.credential);
-    console.log(
-      localStorage.setItem("user", JSON.stringify(response.credential))
-    );
-
     const { name, picture, sub } = decoded;
-
-    const user = {
+    const doc = {
       _id: sub,
       _type: "user",
       userName: name,
       image: picture,
     };
 
-    client.createIfNotExists(user).then(() => {
+    localStorage.setItem("user", JSON.stringify(doc));
+
+    client.createIfNotExists(doc).then(() => {
       navigate("/", { replace: true });
     });
   };
@@ -61,8 +56,8 @@ const Login = () => {
                   <FcGoogle className="mr-4" /> Sign in with Google
                 </button>
               )}
-              onSuccess={credentialResponse}
-              onError={(err) => console.log("Error: " + err)}
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
               cookiePolicy="single_host_origin"
             />
           </div>
