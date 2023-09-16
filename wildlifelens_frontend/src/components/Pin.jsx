@@ -119,13 +119,26 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                     e.stopPropagation();
                     deletePin(_id);
                   }}
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
-                ></button>
+                  className="bg-white p-2 opacity-70 hover:opacity-100 font-bold text-dark text-base rounded-3xl hover:shadow-md outline-none"
+                >
+                  <AiTwotoneDelete />
+                </button>
               )}
             </div>
           </div>
         )}
       </div>
+      <Link
+        to={`user-profile/${postedBy?._id}`}
+        className="flex gap-2 mt-2 items-center"
+      >
+        <img
+          src={postedBy?.image}
+          alt="user-profile"
+          className="w-8 h-8 rounded-full object-cover"
+        />
+        <p className="font-semibold capitalize">User:{postedBy?.userName}</p>
+      </Link>
     </div>
   );
 };
