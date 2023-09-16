@@ -10,15 +10,45 @@ import { fetchUser } from "../utils/fetchUser";
 
 const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
   const [postHovered, setPostHovered] = useState(false);
-  const [savingPost, setSavingPost] = useState(false);
   const user = fetchUser();
   const navigate = useNavigate();
 
-  const alreadySaved = !!(save?.filter(
+  const alreadySaved = !!save?.filter(
     (item) => item.postedBy._id === user.googleId
-  )).length;
+  )?.length;
   // 1, [2, 3, 1] -> [1].length -> 1 -> !1 -> false -> !false -> true
   // 4, [2, 3, 1] -> [].length -> 0 -> !0 -> true -> !true -> false
+
+  const savePin = (id) => {
+    if (!alreadySaved) {
+      client
+        .patch(id)
+        .setIfMissing({ save: [] })
+        .insert(
+          "after",
+          "save[-1]"[
+            {
+              _key: uuidv4(),
+              userId: user.googleId,
+              postedBy: {
+                _type: "postedBy",
+                _ref: user.googleId,
+              },
+            }
+          ]
+        )
+        .commit()
+        .then(() => {
+          window.location.reload();
+        });
+    }
+  };
+
+  const deletePin = (id) => {
+    client.delete(id).then(() => {
+      window.location.reload();
+    });
+  };
 
   return (
     <div className="m-2">
@@ -49,10 +79,48 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                   <MdDownloadForOffline />
                 </a>
               </div>
-              {alreadySaved?.length !== 0 ? (
-                <button>Saved</button>
+              {alreadySaved ? (
+                <button
+                  type="button"
+                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                >
+                  {save?.length} Saved
+                </button>
               ) : (
-                <button>Save</button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    savePin(_id);
+                  }}
+                  type="button"
+                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                >
+                  Save
+                </button>
+              )}
+            </div>
+            <div className="flex justify-between items-center gap-2 w-full">
+              {destination && (
+                <a
+                  href={destination}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md"
+                >
+                  <BsFillArrowUpRightCircleFill />
+                  {destination.length > 20
+                    ? destination.slice(8, 20)
+                    : destination.slice(8)}
+                </a>
+              )}
+              {postedBy?._id === user.googleId && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deletePin(_id);
+                  }}
+                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                ></button>
               )}
             </div>
           </div>
