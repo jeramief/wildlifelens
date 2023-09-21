@@ -101,7 +101,7 @@ export const pinDetailQuery = (pinId) => {
         image
       },
     }
-  }`;
+  }`
   return query;
 };
 
